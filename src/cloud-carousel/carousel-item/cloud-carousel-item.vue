@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Emitter from './util/emitter';
+import Emitter from '../util/emitter';
 
 let transform = (function() {
     let vendors = ['webkit', 'moz', 'ms'];

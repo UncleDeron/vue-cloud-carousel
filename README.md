@@ -18,6 +18,39 @@ High performance 3D-perspective carousel for Vue 2.x, base on [cloud9carousel](h
 
 ### Basic usage
 
+Install
+
+``` bash
+npm install vue-cloud-carousel
+```
+
+Import
+
+```javascript
+// main.js (global)
+import { CloudCarousel, CloudCarouselItem } from 'vue-cloud-carousel'
+
+Vue.use(CloudCarousel);
+Vue.use(CloudCarouselItem);
+
+// OR
+
+// xxx.vue (component)
+import { CloudCarousel, CloudCarouselItem } from 'vue-cloud-carousel'
+
+export default {
+    name: 'example',
+    components: { CloudCarouselItem, CloudCarousel},
+    data() {
+        return {
+            key: 'value'
+        }
+    }
+};
+
+
+```
+
 template:
 ```html
 <div id="carousel">

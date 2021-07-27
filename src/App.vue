@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import CloudCarousel from './cloud-carousel/cloud-carousel'
-import CloudCarouselItem from './cloud-carousel/cloud-carousel-item';
+import CloudCarousel from './cloud-carousel/carousel/cloud-carousel'
+import CloudCarouselItem from './cloud-carousel/carousel-item/cloud-carousel-item';
 
 export default {
     name: 'app',

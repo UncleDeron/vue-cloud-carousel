@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import CloudCarouselItem from './cloud-carousel-item'
-import Emitter from './util/emitter'
+import CloudCarouselItem from '../carousel-item/cloud-carousel-item'
+import Emitter from '../util/emitter'
 
 let cancelFrame = window.cancelAnimationFrame || window.cancelRequestAnimationFrame;
 let requestFrame = window.requestAnimationFrame;
