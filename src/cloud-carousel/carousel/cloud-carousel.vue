@@ -35,7 +35,8 @@ export default {
                 bringToFront: false,
                 itemClass: 'carousel-item',
                 frontItemClass: 'current-item',
-                handle: 'carousel'
+                handle: 'carousel',
+                farOpacity: 0.5
             },
 
             autoPlayTimer: 0,
@@ -65,7 +66,8 @@ export default {
             bringToFront: false,
             itemClass: 'cloud9-item',
             frontItemClass: null,
-            handle: 'carousel'
+            handle: 'carousel',
+            farOpacity: 0.5
         }
     },
     methods: {
@@ -73,12 +75,15 @@ export default {
             let item = this.items[itemIndex];
             let sin = Math.sin(rotation);
             let farScale = this.carouselOptions.farScale;
+            let farOpacity = this.carouselOptions.farOpacity;
             let scale = farScale + ((1-farScale) * (sin+1) * 0.5);
+            let opacity = farScale + ((1-farOpacity) * (sin+1) * 0.5);
 
             item.moveTo(
                 this.carouselOptions.xOrigin + (scale * ((Math.cos(rotation) * this.carouselOptions.xRadius) - (item.fullWidth * 0.5))),
                 this.carouselOptions.yOrigin + (scale * sin * this.carouselOptions.yRadius),
                 scale,
+                opacity
             );
 
             return item;

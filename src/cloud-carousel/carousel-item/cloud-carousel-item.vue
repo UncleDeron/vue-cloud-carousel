@@ -41,7 +41,7 @@ export default {
         };
     },
     methods: {
-        moveTo(x, y, scale) {
+        moveTo(x, y, scale, opacity) {
             this.width = this.fullWidth * scale;
             this.height = this.fullHeight * scale;
             this.x = x;
@@ -58,6 +58,7 @@ export default {
                 style.left = x + "px";
                 style.top = y + "px";
             }
+            style.opacity = opacity
         },
         init(transformsOpt) {
             this.element = this.$refs.carouselItem;

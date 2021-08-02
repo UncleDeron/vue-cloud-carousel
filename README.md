@@ -128,6 +128,11 @@ You may pass these options to the carousel constructor.  Some of these propertie
     <td>0.5</td>
   </tr>
   <tr>
+    <td>farOpacity</td>
+    <td>Opacity of an item at its farthest point (range: 0 to 1)</td>
+    <td>0.5</td>
+  </tr>
+  <tr>
     <td>transforms</td>
     <td>Use <a href="http://learn.shayhowe.com/advanced-html-css/css-transforms">native CSS transforms</a> if <a href="http://caniuse.com/transforms">support for them is detected</a></td>
     <td>true</td>
