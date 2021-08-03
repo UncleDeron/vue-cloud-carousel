@@ -37,8 +37,16 @@ export default {
             x: 0,
             y: 0,
             scale: 1,
-            transformsOpt: true
+            transformsOpt: true,
+            prev: null,
+            next: null,
         };
+    },
+    props: {
+        params: {
+            type: Object,
+            default: null
+        }
     },
     methods: {
         moveTo(x, y, scale, opacity) {
@@ -60,12 +68,14 @@ export default {
             }
             style.opacity = opacity
         },
-        init(transformsOpt) {
+        init(transformsOpt, prev, next) {
             this.element = this.$refs.carouselItem;
             this.element.item = this;
             this.fullWidth = this.element.offsetWidth;
             this.fullHeight = this.element.offsetHeight;
             this.transformsOpt = transformsOpt;
+            this.prev = prev;
+            this.next = next;
 
             if( transform && transformsOpt ) {
                 this.element.style[transform + "Origin"] = "0 0";

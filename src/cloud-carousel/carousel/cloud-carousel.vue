@@ -48,6 +48,7 @@ export default {
             },
             items: [],
             initTimer: null,
+            currentItem: null,
         };
     },
     props: {
@@ -97,16 +98,17 @@ export default {
             for( let i = 0; i < count; i++ ) {
                 let item = this.renderItem( i, radians );
 
-                if( i === nearest )
+                if( i === nearest ) {
                     item.element.classList.add( this.carouselOptions.frontItemClass );
-                else
+                    this.currentItem = item
+                } else {
                     item.element.classList.remove( this.carouselOptions.frontItemClass );
+                }
 
                 radians += spacing;
             }
 
-            if( typeof this.carouselOptions.onRendered === 'function' )
-                this.carouselOptions.onRendered( this );
+            this.$emit('rendered', this);
         },
         playFrame() {
             let rem = this.destRotation - this.rotation;
@@ -117,9 +119,7 @@ export default {
             if( Math.abs(rem) < 0.003 ) {
                 this.rotation = this.destRotation;
                 this.pause();
-
-                if( typeof this.onAnimationFinished === 'function' )
-                    this.onAnimationFinished();
+                this.$emit('animationFinished', this)
             } else {
                 // Asymptotically approach the destination
                 this.rotation = this.destRotation - rem / (1 + (this.carouselOptions.speed * dt));
@@ -148,9 +148,7 @@ export default {
         nearestIndex() {
             return Math.round( this.floatIndex() ) % this.items.length;
         },
-        nearestItem() {
-            return this.items[this.nearestIndex()];
-        },
+
         play() {
             if( this.timer === 0 )
                 this.scheduleNextFrame();
@@ -164,6 +162,7 @@ export default {
         // Spin the carousel by (+-) count items
         //
         go( count ) {
+            this.$emit('beforeRender', this)
             this.destRotation += (2 * Math.PI / this.items.length) * count;
             this.play();
         },
@@ -239,11 +238,8 @@ export default {
             if( this.options.bringToFront ) {
                 this.$on('handleItemClick', (item) => {
                     if( item ) {
-                        let diff = this.goTo( this.items.indexOf( item ) );
-
-                        // Suppress default browser action if the item isn't roughly in front
-                        if( Math.abs(diff) > 0.5 )
-                            event.preventDefault();
+                        this.goTo( this.items.indexOf( item ) );
+                        this.$emit('itemClick', item)
                     }
                 })
             }
@@ -258,19 +254,28 @@ export default {
 
             // Init items
             for(let i = 0; i < this.items.length; i++ ) {
-                this.items[i].init(this.carouselOptions.transforms);
+                let prev, next;
+                if (i === 0) {
+                    next = this.items[this.items.length - 1]
+                } else {
+                    next = this.items[i - 1]
+                }
+                if (i === this.items.length - 1) {
+                    prev = this.items[0]
+                } else {
+                    prev = this.items[i + 1]
+                }
+                this.items[i].init(this.carouselOptions.transforms, prev, next);
             }
 
             // Disable click-dragging of items
-             this.$refs.carousel.addEventListener( 'mousedown', function() { return false } );
-             this.$refs.carousel.addEventListener( 'onselectstart', function() { return false } );
+             this.$refs.carousel.addEventListener( 'mousedown', () => false );
+             this.$refs.carousel.addEventListener( 'onselectstart', () => false );
 
             if( this.carouselOptions.autoPlayAmount !== 0 ) this.enableAutoPlay();
             this.bindControls();
             this.render();
-
-            if( typeof this.carouselOptions.onLoaded === 'function' )
-                this.carouselOptions.onLoaded( this );
+            this.$emit('loaded', this)
         },
 
         initRenderParams() {
@@ -286,6 +291,18 @@ export default {
             return !window.performance || !window.performance.now ?
                 +new Date()  :
                 performance.now();
+        },
+
+        getNextItem() {
+            return this.items[this.nearestIndex()].next;
+        },
+
+        getPrevItem() {
+            return this.items[this.nearestIndex()].prev;
+        },
+
+        getNearestItem() {
+            return this.items[this.nearestIndex()];
         },
     },
     mounted() {

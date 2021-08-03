@@ -169,6 +169,41 @@ You may pass these options to the carousel constructor.  Some of these propertie
   </tr>
 </table>
 
+Basic methods:
+
+<table>
+  <tr>
+    <th>方法</th>
+    <th>描述</th>
+    <th>参数</th>
+  </tr>
+  <tr>
+    <td>go( count )</td>
+    <td>Spin the carousel</td>
+    <td><b>count</b>: Number of carousel items to rotate (<b>+</b> is clockwise, <b>-</b> is counterclockwise)</td>
+  </tr>
+  <tr>
+    <td>goTo( index )</td>
+    <td>Spin the carousel to a specific item</td>
+    <td><b>index</b>: Index of the carousel item to rotate to</td>
+  </tr>
+  <tr>
+    <td>getNearestItem()</td>
+    <td>Returns a item component of the item that is nearest to the front <b>(CloudCarouselItem)</b></td>
+    <td>none</td>
+  </tr>
+  <tr>
+    <td>getNextItem()</td>
+    <td>Returns the right item component of the nearest item <b>(CloudCarouselItem)</b></td>
+    <td>none</td>
+  </tr>
+  <tr>
+    <td>getPrevItem()</td>
+    <td>Returns the left item component of the nearest item <b>(CloudCarouselItem)</b></td>
+    <td>none</td>
+  </tr>
+</table>
+
 ## Demo Build Setup
 
 ``` bash
