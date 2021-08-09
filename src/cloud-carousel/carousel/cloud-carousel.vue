@@ -306,11 +306,8 @@ export default {
         },
 
         setOptions(options) {
-            clearInterval( this.autoPlayTimer );
-            this.pause();
             this.carouselOptions = Object.assign({}, this.carouselOptions, options);
-            this.carouselOptions.autoPlayAmount = options.autoPlay;
-            this.initTimer = setInterval( () => { this.finishInit() }, 50 );
+            this.render()
         },
 
         goNext() {
