@@ -215,7 +215,7 @@ Basic methods:
   <tr>
     <td>setOptions( options )</td>
     <td>reset the options of carousel</td>
-    <td>see: <a href="#carousel-options">Carousel options
+    <td>options: see <a href="#carousel-options">Carousel options
 </a></td>
   </tr>
 </table>
