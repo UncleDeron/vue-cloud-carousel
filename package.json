@@ -1,7 +1,7 @@
 {
     "name": "vue-cloud-carousel",
     "description": "High performance 3D-perspective carousel for Vue 2.x, base on cloud9carousel",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "author": "UncleDeron",
     "license": "MIT",
     "private": false,

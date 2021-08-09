@@ -304,6 +304,34 @@ export default {
         getNearestItem() {
             return this.items[this.nearestIndex()];
         },
+
+        setOptions(options) {
+            clearInterval( this.autoPlayTimer );
+            this.pause();
+            this.carouselOptions = Object.assign({}, this.carouselOptions, options);
+            this.carouselOptions.autoPlayAmount = options.autoPlay;
+            this.initTimer = setInterval( () => { this.finishInit() }, 50 );
+        },
+
+        goNext() {
+            clearInterval( this.autoPlayTimer );
+            this.go(1)
+            if( this.carouselOptions.autoPlayAmount !== 0 ) this.autoPlay();
+        },
+
+        goPrev() {
+            clearInterval( this.autoPlayTimer );
+            this.go(-1)
+            if( this.carouselOptions.autoPlayAmount !== 0 ) this.autoPlay();
+        },
+
+        pauseAutoPlay() {
+            clearInterval( this.autoPlayTimer );
+        },
+
+        resumeAutoPlay() {
+            this.autoPlay();
+        }
     },
     mounted() {
         this.$nextTick(() => {

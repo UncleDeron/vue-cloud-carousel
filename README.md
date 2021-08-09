@@ -202,6 +202,22 @@ Basic methods:
     <td>Returns the left item component of the nearest item <b>(CloudCarouselItem)</b></td>
     <td>none</td>
   </tr>
+  <tr>
+    <td>goPrev()</td>
+    <td>Spin the carousel to the prev item</td>
+    <td>none</td>
+  </tr>
+  <tr>
+    <td>goNext()</td>
+    <td>Spin the carousel to the next item</td>
+    <td>none</td>
+  </tr>
+  <tr>
+    <td>setOptions( options )</td>
+    <td>reset the options of carousel</td>
+    <td>see: <a href="#carousel-options">Carousel options
+</a></td>
+  </tr>
 </table>
 
 ## Demo Build Setup
