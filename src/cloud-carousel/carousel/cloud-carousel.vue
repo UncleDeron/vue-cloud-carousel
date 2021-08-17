@@ -250,6 +250,8 @@ export default {
         finishInit() {
             this.items =  this.$children;
 
+            if (!this.items || !this.items.length) return
+
             clearInterval( this.initTimer );
 
             // Init items
@@ -340,7 +342,15 @@ export default {
         clearInterval( this.autoPlayTimer );
     },
     created() {
+    
+    },
+
+    watch: {
+        '$children': function(new, old) {
+            this.initTimer = setInterval( () => { this.finishInit() }, 50 );
+        }
     }
+
 };
 </script>
 
