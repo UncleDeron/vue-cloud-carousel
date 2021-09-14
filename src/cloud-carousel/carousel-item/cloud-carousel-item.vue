@@ -7,6 +7,7 @@
 <script>
 import Emitter from '../util/emitter';
 
+// 判断浏览器是否支持transform，支持返回对应的Style标记，不支持返回undefined
 let transform = (function() {
     let vendors = ['webkit', 'moz', 'ms'];
     let style   = document.createElement( "div" ).style;

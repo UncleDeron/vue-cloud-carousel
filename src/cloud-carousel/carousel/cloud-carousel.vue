@@ -21,16 +21,16 @@ export default {
             carouselOptions: {
             },
             defaultOptions: {
-                xOrigin: null,        // null: calculated automatically
+                xOrigin: null,
                 yOrigin: null,
                 xRadius: null,
                 yRadius: null,
-                farScale: 0.5,        // scale of the farthest item
-                transforms: true,     // enable CSS transforms
-                smooth: true,         // enable smooth animation via requestAnimationFrame()
-                fps: 30,              // fixed frames per second (if smooth animation is off)
-                speed: 4,             // positive number
-                autoPlay: 0,          // [ 0: off | number of items (integer recommended, positive is clockwise) ]
+                farScale: 0.5,
+                transforms: true,
+                smooth: true,
+                fps: 30,
+                speed: 4,
+                autoPlay: 0,
                 autoPlayDelay: 4000,
                 bringToFront: false,
                 itemClass: 'carousel-item',
@@ -40,7 +40,7 @@ export default {
             },
 
             autoPlayTimer: 0,
-            rotation: Math.PI/2, // start with the first item positioned in front
+            rotation: Math.PI/2,
             destRotation: Math.PI/2,
             timer: 0,
             itemOptions: {
@@ -53,16 +53,16 @@ export default {
     },
     props: {
         options: {
-            xOrigin: null,        // null: calculated automatically
+            xOrigin: null,
             yOrigin: null,
             xRadius: null,
             yRadius: null,
-            farScale: 0.5,        // scale of the farthest item
-            transforms: true,     // enable CSS transforms
-            smooth: true,         // enable smooth animation via requestAnimationFrame()
-            fps: 30,              // fixed frames per second (if smooth animation is off)
-            speed: 4,             // positive number
-            autoPlay: 0,          // [ 0: off | number of items (integer recommended, positive is clockwise) ]
+            farScale: 0.5,
+            transforms: true,
+            smooth: true,
+            fps: 30,
+            speed: 4,
+            autoPlay: 0,
             autoPlayDelay: 4000,
             bringToFront: false,
             itemClass: 'cloud9-item',
@@ -108,6 +108,7 @@ export default {
                 radians += spacing;
             }
 
+            // 触发渲染完成事件，该事件为逐帧触发
             this.$emit('rendered', this);
         },
         playFrame() {
@@ -121,7 +122,6 @@ export default {
                 this.pause();
                 this.$emit('animationFinished', this)
             } else {
-                // Asymptotically approach the destination
                 this.rotation = this.destRotation - rem / (1 + (this.carouselOptions.speed * dt));
                 this.scheduleNextFrame();
             }
@@ -142,7 +142,7 @@ export default {
             let count = this.items.length;
             let floatIndex = this.itemsRotated() % count;
 
-            // Make sure float-index is positive
+            // 确保floatIndex是正数
             return (floatIndex < 0) ? floatIndex + count : floatIndex;
         },
         nearestIndex() {
@@ -158,9 +158,7 @@ export default {
             this.timer = 0;
         },
 
-        //
-        // Spin the carousel by (+-) count items
-        //
+
         go( count ) {
             this.$emit('beforeRender', this)
             this.destRotation += (2 * Math.PI / this.items.length) * count;
@@ -170,29 +168,19 @@ export default {
         goTo( index ) {
             let count = this.items.length;
 
-            // Find the shortest way to rotate item to front
+            // 用来判断最近的旋转方向
             let diff = index - (this.floatIndex() % count);
 
             if( 2 * Math.abs(diff) > count )
                 diff -= (diff > 0) ? count : -count;
 
-            // Halt any rotation already in progress
             this.destRotation = this.rotation;
 
-            // Spin the opposite way to bring item to front
             this.go( -diff );
 
-            // Return rotational distance (in items) to the target
             return diff;
         },
 
-        // deactivate() {
-        //     this.pause();
-        //     clearInterval( this.autoPlayTimer );
-        //     if( this.options.buttonLeft ) this.options.buttonLeft.unbind( 'click' );
-        //     if( this.options.buttonRight ) this.options.buttonRight.unbind( 'click' );
-        //     $container.unbind( '.cloud9' );
-        // },
 
         autoPlay() {
             this.autoPlayTimer = setInterval(
@@ -204,13 +192,12 @@ export default {
         },
 
         enableAutoPlay() {
-            // Stop auto-play on mouse over
+            // 鼠标移上移开事件处理
             this.$on('handleItemMouseOver', () => {
                 clearInterval( this.autoPlayTimer );
             })
 
 
-            // Resume auto-play when mouse leaves the container
             this.$on('handleItemMouseOut', () => {
                 this.autoPlay();
             })
@@ -252,7 +239,7 @@ export default {
 
             clearInterval( this.initTimer );
 
-            // Init items
+            // 初始化item
             for(let i = 0; i < this.items.length; i++ ) {
                 let prev, next;
                 if (i === 0) {
@@ -268,7 +255,7 @@ export default {
                 this.items[i].init(this.carouselOptions.transforms, prev, next);
             }
 
-            // Disable click-dragging of items
+            // 禁用拖拽
              this.$refs.carousel.addEventListener( 'mousedown', () => false );
              this.$refs.carousel.addEventListener( 'onselectstart', () => false );
 
@@ -355,7 +342,6 @@ export default {
     .noselect {
         -webkit-touch-callout: none;
         -webkit-user-select: none;
-        -khtml-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;

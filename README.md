@@ -1,30 +1,28 @@
 # vue-cloud-carousel
 
-High performance 3D-perspective carousel for Vue 2.x, base on [cloud9carousel](https://github.com/specious/cloud9carousel)
+基于Vue 2.x开发的高性能3D景深轮播组件
 
 ## Features
 
-- Works with Vue 2.x
-- Extremely fast
-- [Easy to use](#basic-usage)
-- *(optional)* Rotate clicked item to front
-- *(optional)* Auto-play
-- Smooth animation via [requestAnimationFrame](https://developer.mozilla.org/docs/Web/API/window/requestAnimationFrame) with fixed-FPS fallback mode
-- GPU acceleration through CSS transforms ([support](http://caniuse.com/transforms) detected automatically)
-- Create multiple instances
-- Items can be any HTML element
+- 支持 Vue 2.x
+- 很快
+- [好使](#basic-usage)
+- *(可选)* 支持点击选中
+- *(可选)* 支持自动播放
+- 支持 [requestAnimationFrame](https://developer.mozilla.org/docs/Web/API/window/requestAnimationFrame)
+- 支持 CSS transforms ([浏览器支持列表](http://caniuse.com/transforms))
 
-## Documentation
+## 文档
 
-### Basic usage
+### 基本用法
 
-Install
+安装
 
 ``` bash
 npm install vue-cloud-carousel
 ```
 
-Import
+引入
 
 ```javascript
 // main.js (global)
@@ -33,7 +31,7 @@ import { CloudCarousel, CloudCarouselItem } from 'vue-cloud-carousel'
 Vue.use(CloudCarousel);
 Vue.use(CloudCarouselItem);
 
-// OR
+// 或者
 
 // xxx.vue (component)
 import { CloudCarousel, CloudCarouselItem } from 'vue-cloud-carousel'
@@ -94,8 +92,6 @@ export default {
 
 ### Carousel options
 
-You may pass these options to the carousel constructor.  Some of these properties may be changed during runtime via the data handle.
-
 <table>
   <tr>
     <th>选项</th>
@@ -104,67 +100,67 @@ You may pass these options to the carousel constructor.  Some of these propertie
   </tr>
   <tr>
     <td>xOrigin</td>
-    <td>Center of the carousel (x coordinate)</td>
-    <td>(container width / 2)</td>
+    <td>轮播中心点横向坐标</td>
+    <td>(组件宽度 / 2)</td>
   </tr>
   <tr>
     <td>yOrigin</td>
-    <td>Center of the carousel (y coordinate)</td>
-    <td>(container height / 10)</td>
+    <td>轮播图中心点纵向坐标</td>
+    <td>(组件高度 / 10)</td>
   </tr>
   <tr>
     <td>xRadius</td>
-    <td>Half the width of the carousel</td>
-    <td>(container width / 2.3)</td>
+    <td>轮播图横向半径</td>
+    <td>(组件宽度 / 2.3)</td>
   </tr>
   <tr>
     <td>yRadius</td>
-    <td>Half the height of the carousel</td>
-    <td>(container height / 6)</td>
+    <td>轮播图纵向半径</td>
+    <td>(组件高度 / 6)</td>
   </tr>
   <tr>
     <td>farScale</td>
-    <td>Scale of an item at its farthest point (range: 0 to 1)</td>
+    <td>距离当前活动元素最远的元素的缩放比例（0-1）</td>
     <td>0.5</td>
   </tr>
   <tr>
     <td>farOpacity</td>
-    <td>Opacity of an item at its farthest point (range: 0 to 1)</td>
+    <td>距离当前活动元素最远的元素的透明度（0-1）</td>
     <td>0.5</td>
   </tr>
   <tr>
     <td>transforms</td>
-    <td>Use <a href="http://learn.shayhowe.com/advanced-html-css/css-transforms">native CSS transforms</a> if <a href="http://caniuse.com/transforms">support for them is detected</a></td>
+    <td>如果浏览器支持的话，是否使用原生 CSS 的 transform 属性</td>
     <td>true</td>
   </tr>
   <tr>
     <td>smooth</td>
-    <td>Use maximum effective frame rate via the <a href="https://developer.mozilla.org/docs/Web/API/window.requestAnimationFrame">requestAnimationFrame</a> API if <a href="http://caniuse.com/requestanimationframe">support is detected</a></td>
+    <td>如果浏览器支持的话，是否通过 requestAnimationFrame API 使用最大帧率</td>
     <td>true</td>
   </tr>
   <tr>
     <td>fps</td>
-    <td>Frames per second (if smooth animation is turned off)</td>
+    <td>如果 smooth 为 false 时，每秒帧数</td>
     <td>30</td>
   </tr>
   <tr>
     <td>speed</td>
-    <td>Relative speed factor of the carousel.  Any positive number: <b>1</b> is slow, <b>4</b> is medium, <b>10</b> is fast.  Adjust to your liking</td>
+    <td>元素移动速度: <b>1</b> 最慢, <b>4</b> 中等, <b>10</b> 最快  </td>
     <td>4</td>
   </tr>
   <tr>
     <td>autoPlay</td>
-    <td>Automatically rotate the carousel by this many items periodically (positive number is clockwise).  Auto-play is not performed while the mouse hovers over the carousel container.  A value of <b>0</b> means auto-play is turned off.  See: <b>autoPlayDelay</b></td>
+    <td>是否开启自动轮播： <b>0</b> 关闭；如果鼠标移至轮播图上，自动轮播将暂停。  查看: <b>autoPlayDelay</b></td>
     <td>0</td>
   </tr>
   <tr>
     <td>autoPlayDelay</td>
-    <td>Delay, in milliseconds, between auto-play spins</td>
+    <td>两次自动轮播之间的时间间隔，单位毫秒</td>
     <td>4000</td>
   </tr>
   <tr>
     <td>bringToFront</td>
-    <td>Clicking an item will rotate it to the front</td>
+    <td>是否支持将鼠标点击元素设置为当前活动元素</td>
     <td>false</td>
   </tr>
 </table>
@@ -179,48 +175,48 @@ Basic methods:
   </tr>
   <tr>
     <td>go( count )</td>
-    <td>Spin the carousel</td>
-    <td><b>count</b>: Number of carousel items to rotate (<b>+</b> is clockwise, <b>-</b> is counterclockwise)</td>
+    <td>设置距离当前活动元素的第count个元素为最前方的活动元素</td>
+    <td><b>count</b>: 距离当前活动元素的个数 (<b>+</b> 正向, <b>-</b> 反向)</td>
   </tr>
   <tr>
     <td>goTo( index )</td>
-    <td>Spin the carousel to a specific item</td>
-    <td><b>index</b>: Index of the carousel item to rotate to</td>
+    <td>设置列表中第index个元素为最前方的活动元素</td>
+    <td><b>index</b>: 元素在元素列表中的索引</td>
   </tr>
   <tr>
     <td>getNearestItem()</td>
-    <td>Returns a item component of the item that is nearest to the front <b>(CloudCarouselItem)</b></td>
+    <td>获取最前方活动元素的组件实例 <b>(CloudCarouselItem)</b></td>
     <td>none</td>
   </tr>
   <tr>
     <td>getNextItem()</td>
-    <td>Returns the right item component of the nearest item <b>(CloudCarouselItem)</b></td>
+    <td>获取自动轮播中下一个活动元素的组件实例 <b>(CloudCarouselItem)</b></td>
     <td>none</td>
   </tr>
   <tr>
     <td>getPrevItem()</td>
-    <td>Returns the left item component of the nearest item <b>(CloudCarouselItem)</b></td>
+    <td>获取自动轮播中上一个活动元素的组件实例 <b>(CloudCarouselItem)</b></td>
     <td>none</td>
   </tr>
   <tr>
     <td>goPrev()</td>
-    <td>Spin the carousel to the prev item</td>
+    <td>移至上一个元素</td>
     <td>none</td>
   </tr>
   <tr>
     <td>goNext()</td>
-    <td>Spin the carousel to the next item</td>
+    <td>移至下一个元素</td>
     <td>none</td>
   </tr>
   <tr>
     <td>setOptions( options )</td>
-    <td>reset the options of carousel</td>
-    <td>options: see <a href="#carousel-options">Carousel options
+    <td>重置设置项</td>
+    <td>options: 查看 <a href="#carousel-options">Carousel options
 </a></td>
   </tr>
 </table>
 
-## Demo Build Setup
+## 运行示例
 
 ``` bash
 # install dependencies
